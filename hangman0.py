@@ -77,40 +77,37 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     length = len(secret_word)
-    wordsguessed = [None]*length
-    counter = 0
-    for letter in letters_guessed:
-        if (letter in secret_word):
-            wordsguessed[counter] = letter
-        else:
-            wordsguessed[counter] = '_ '
-        counter = counter + 1
-    finalword = ''
+    str = ''             # for the sake of experimentation
+    tempword = secret_word
+    wordsguessed = ['_ ']*length  # final word that is there in form of a list
+
+    # initializing temp for later use
+    temp  = []
+
+    count = 0
+
+    for letter in secret_word:               # this is to check if a letter occurs more than once
+        temp.append(letter)
+        if(letter == letters_guessed):
+            count = count + 1
+
+
+    if (count == 1):
+        pos = secret_word.find(letters_guessed)   # gives position of the letter
+        wordsguessed[pos] = letters_guessed       # updates the list with the letter
+    else:
+        while(count!=0):
+            pos = tempword.find(letters_guessed)
+            wordsguessed[pos] = letters_guessed
+            tempword =''
+            temp[pos] = '0'
+            for i in temp:
+                tempword = tempword + i
+            count = count - 1
+
     for letter in wordsguessed:
-        finalword = finalword + letter
-
-    return finalword
-
-
-def get_available_letters(letters_guessed):
-    '''
-    letters_guessed: list (of letters), which letters have been guessed so far
-    returns: string (of letters), comprised of letters that represents which letters have not
-      yet been guessed.
-    '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    str = '' # to return
-    lowercase = string.ascii_lowercase
-    finallist = []
-
-    
-
-    for letter in lowercase:
-        if(letter not in list):
-            finallist.append(letter)
-
-    for letter in finallist:
         str = str + letter
+
 
     return str
 
@@ -153,9 +150,10 @@ def hangman(secret_word):
         guess = input('Enter letter to be guessed:')
         str1 = get_guessed_word(secret_word, guess)
         print(str1)
-        guesses = guesses + 1
+        guesses = guesses - 1
 
     print('Thank you for playing')
+    print(secret_word)
 
 
 
