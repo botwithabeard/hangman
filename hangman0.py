@@ -103,6 +103,8 @@ def get_available_letters(letters_guessed):
     lowercase = string.ascii_lowercase
     finallist = []
 
+    
+
     for letter in lowercase:
         if(letter not in list):
             finallist.append(letter)
